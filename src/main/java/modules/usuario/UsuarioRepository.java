@@ -22,10 +22,16 @@ public class UsuarioRepository {
     public static ArrayList<Usuario> listarUsuarios() throws IOException {
         String line;
         BufferedReader bf = new BufferedReader(new FileReader("usuarios.csv"));
+        ArrayList<Usuario> usr = new ArrayList<>();
         while((line = bf.readLine()) != null){
             String[] usuario = line.split(",");
-
+            if(usuario[2].equals("1")){
+                usr.add(new Aluno(usuario[0], usuario[1]));
+            } else{
+                usr.add(new Professor(usuario[0], usuario[1]));
+            }
         }
         bf.close();
+        return usr;
     }
 }

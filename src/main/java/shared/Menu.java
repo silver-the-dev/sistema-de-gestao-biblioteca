@@ -26,27 +26,31 @@ public class Menu {
     public static void menu(){
         opcoes();
         int opt = SafeInput.SafeRangeInt(1, 7);
-        switch (opt){
-            case 1:
-                UsuarioController.listarUsuarios();
-                break;
-            case 2:
-                LivroController.listarLivros();
-                break;
-            case 3:
-                LivroController.criarLivro();
-                break;
-            case 4:
-                System.out.println("Digite o tipo do usuário: ");
-                System.out.println("\t1 - Aluno");
-                System.out.println("\t2 - Professor");
-                int tipo = SafeInput.SafeRangeInt(1, 2);
-                System.out.println("Digite o número de registro: ");
-                String numDeRegistro = SafeInput.SafeString();
-                System.out.println("Digite o nome do usuário: ");
-                String nome = SafeInput.SafeString();
-                UsuarioController.criarContaDeUsuario(tipo, numDeRegistro, nome);
-                break;
+        try {
+            switch (opt){
+                case 1:
+                    System.out.println(UsuarioController.listarUsuarios());
+                    break;
+                case 2:
+                    LivroController.listarLivros();
+                    break;
+                case 3:
+                    LivroController.criarLivro();
+                    break;
+                case 4:
+                    System.out.println("Digite o tipo do usuário: ");
+                    System.out.println("\t1 - Aluno");
+                    System.out.println("\t2 - Professor");
+                    int tipo = SafeInput.SafeRangeInt(1, 2);
+                    System.out.println("Digite o número de registro: ");
+                    String numDeRegistro = SafeInput.SafeString();
+                    System.out.println("Digite o nome do usuário: ");
+                    String nome = SafeInput.SafeString();
+                    UsuarioController.criarContaDeUsuario(tipo, numDeRegistro, nome);
+                    break;
+            }
+        } catch (Exception e){
+            System.err.println("Não foi possível realizar esta operação");
         }
     }
 }
