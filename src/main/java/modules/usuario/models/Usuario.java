@@ -12,4 +12,8 @@ public abstract class Usuario {
         this.limiteDeLivros = limiteDeLivros;
         this.idsLivrosEmprestados = idsLivrosEmprestados;
     }
+
+    public String getNumDeRegistro() {
+        return numDeRegistro;
+    }
 }

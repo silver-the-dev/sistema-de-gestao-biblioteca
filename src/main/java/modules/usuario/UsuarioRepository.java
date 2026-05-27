@@ -9,10 +9,17 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class UsuarioRepository {
 
     public static Usuario criarContaDeUsuario(int tipo, String numDeRegistro, String nome) throws IOException {
+        List<String> idsRegistrados = listarUsuarios().stream().map(Usuario::getNumDeRegistro).toList();
+        int n = Integer.parseInt(numDeRegistro);
+        while(idsRegistrados.contains(Integer.toString(n))){
+            n++;
+        }
+        numDeRegistro = Integer.toString(n);
         FileWriter fw = new FileWriter("usuarios.csv", true);
         fw.write(numDeRegistro + "," + nome + "," + tipo + "\n");
         fw.close();

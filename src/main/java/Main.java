@@ -5,7 +5,7 @@ import modules.usuario.models.Aluno;
 import shared.Menu;
 
 public class Main {
-    static void main(String[] args) {
-        Menu.menu();
+    static void main(String[] args) throws Exception{
+        while(true) Menu.menu() ;
     }
 }
