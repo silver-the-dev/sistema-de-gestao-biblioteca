@@ -16,8 +16,8 @@ public class Menu {
         System.out.println("\t2 - Listar Todos os Livros - P");
         System.out.println("\t3 - Criar um Novo Livro - P");
         System.out.println("\t4 - Criar um Novo Usuário - P");
-        System.out.println("\t6 - Emprestar/Devolver um Livro");
-        System.out.println("\t7 - Ver Livros em Atraso");
+        System.out.println("\t5 - Emprestar/Devolver um Livro");
+        System.out.println("\t6 - Ver Livros em Atraso");
         System.out.println("Data de hoje: " + LocalDateTime.now().getDayOfMonth() + "/" + LocalDateTime.now().getMonthValue() + "/" + LocalDateTime.now().getYear());
     }
 
@@ -72,6 +72,25 @@ public class Menu {
                     System.err.println("Não foi possível registrar o usuário");
                 }
                 break;
+            case 5:
+                System.out.println("Digite o ID do usuário: ");
+                String idUsr = SafeInput.SafeString();
+                System.out.println("Digite a operação: ");
+                System.out.println("\t1 - Emprestar");
+                System.out.println("\t2 - Devolver");
+                int tipoOp = SafeInput.SafeRangeInt(1, 2);
+                System.out.println("Digite o id do livro");
+                int idLivro = SafeInput.SafeInt();
+                if (tipoOp == 1) {
+                    try {
+                        boolean emprestado = BibliotecaController.emprestarLivro(idUsr, idLivro);
+                        System.out.println(emprestado ? "Sucesso" : "Erro");
+                    } catch (Exception _){
+                        System.err.println("Não foi possível emprestar o livro");
+                    }
+                }
+
+
         }
     }
 }
