@@ -1,10 +1,12 @@
 package shared;
 
 import modules.biblioteca.BibliotecaController;
+import modules.biblioteca.BibliotecaService;
 import modules.livro.LivroController;
 import modules.usuario.UsuarioController;
 import org.w3c.dom.ls.LSOutput;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Random;
 import java.util.Scanner;
@@ -17,8 +19,9 @@ public class Menu {
         System.out.println("\t2 - Listar Todos os Livros - P");
         System.out.println("\t3 - Criar um Novo Livro - P");
         System.out.println("\t4 - Criar um Novo Usuário - P");
-        System.out.println("\t5 - Emprestar/Devolver um Livro");
+        System.out.println("\t5 - Emprestar/Devolver um Livro - P");
         System.out.println("\t6 - Ver Livros em Atraso");
+        System.out.println("\t7 - Ver Empréstimos de Usuários - P");
         System.out.println("Data de hoje: " + date.getDayOfMonth() + "/" + date.getMonthValue() + "/" + date.getYear());
     }
 
@@ -86,15 +89,30 @@ public class Menu {
                     LocalDateTime newDate = date.plusDays(14);
                     String entrega = (newDate.getDayOfMonth() + "/" + newDate.getMonthValue() + "/" + newDate.getYear());
                     try {
-                        boolean emprestado = BibliotecaController.emprestarLivro(idUsr, idLivro);
+                        boolean emprestado = BibliotecaController.emprestarLivro(idUsr, idLivro, newDate);
                         System.out.println(emprestado ? "O livro foi emprestado com sucesso\nData de entrega: " + entrega : "Não há mais livros disponíveis");
                     } catch (Exception e){
                         System.err.println("Não foi possível emprestar o livro " + e.getMessage());
                         e.printStackTrace();
                     }
+                } else{
+                    try {
+                        boolean devolvido = BibliotecaController.devolverLivro(idUsr, idLivro);
+                        System.out.println(devolvido ? "O livro foi devolvido com sucesso" : "O livro não foi devolvido com sucesso");
+                    } catch (IOException _){
+                        System.err.println("Não foi possível devolver o livro");
+                    }
                 }
-
-
+                break;
+            case 6:
+                break;
+            case 7:
+                try{
+                    System.out.println(BibliotecaController.verificarEmprestimos());
+                } catch (IOException _){
+                    System.err.println("Não foi possível listar os empréstimos");
+                }
+                break;
         }
     }
 }
